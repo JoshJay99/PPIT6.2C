@@ -4,11 +4,10 @@ pipeline {
     tools {
         maven 'Maven'
     }
-
-    stages {
-        stage('Checkout') {
+        stage('Build') {
             steps {
-                git 'https://github.com/JoshJay99/PPIT6.2C.git'
+                echo 'Building...'
+                sh 'mvn clean install'
             }
             post {
                 always {
@@ -16,12 +15,6 @@ pipeline {
                          subject: "Build status email",
                          body: "Build log attached"
                 }
-            }
-        }
-        stage('Build') {
-            steps {
-                echo 'Building...'
-                sh 'mvn clean install'
             }
         }
         stage('Unit and Integration Tests') {
