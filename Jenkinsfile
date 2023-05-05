@@ -1,28 +1,27 @@
-pipeline{
+pipeline {
     agent any
-    stages{
-        stage("Build"){
-            steps{
+    stages {
+        stage("Build") {
+            steps {
                 echo "Building..."
             }
-            post{
-                always{
-                    main to: "sherlockjay03@gmail.com",
-                    subject: "Build status email",
-                    body: "Build log attached",
+            post {
+                always {
+                    mail to: "sherlockjay03@gmail.com",
+                         subject: "Build status email",
+                         body: "Build log attached"
                 }
             }
         }
-        stage("Test"){
-            steps{
+        stage("Test") {
+            steps {
                 echo "Testing..."
             }
         }
-        stage("Deploy"){
-            steps{
+        stage("Deploy") {
+            steps {
                 echo "Deploying..."
             }
         }
     }
 }
-               
