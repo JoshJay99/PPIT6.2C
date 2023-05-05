@@ -27,6 +27,18 @@ pipeline {
             steps {
                 echo 'Using SonarQube to an analyise the code'
             }
+            post {
+                success {
+                    mail to: "sherlockjay03@gmail.com",
+                         subject: "Build status email",
+                         body: "Successful build log attached"
+                }
+                failure {
+                    mail to: "sherlockjay03@gmail.com",
+                         subject: "Build status email",
+                         body: "Successful build log attached"
+                }
+            }
         }
         stage('Security Scan') {
             steps {
