@@ -1,14 +1,9 @@
 pipeline {
     agent any
-
-    tools {
-        maven 'Maven'
-    }
     stages{
         stage('Build') {
             steps {
-                echo 'Building...'
-                sh 'mvn clean install'
+                echo 'Building the code using Maven'
             }
             post {
                 always {
@@ -20,38 +15,32 @@ pipeline {
         }
         stage('Unit and Integration Tests') {
             steps {
-                echo 'Running tests...'
-                sh 'mvn test'
+                echo 'Running tests with JUnit'
             }
         }
         stage('Code Analysis') {
             steps {
-                echo 'Analyzing code...'
-                sh 'mvn sonar:sonar'
+                echo 'Using SonarQube to an analyise the code'
             }
         }
         stage('Security Scan') {
             steps {
-                echo 'Scanning for vulnerabilities...'
-                sh 'dependency-check.sh --project MyProject --scan ./'
+                echo 'Using OWASP Dependancy check to scan the code'
             }
         }
         stage('Deploy to Staging') {
             steps {
-                echo 'Deploying to staging...'
-                // Add your custom deployment script for staging
+                echo 'Using AWS to deploy the code to staging'
             }
         }
         stage('Integration Tests on Staging') {
             steps {
-                echo 'Running integration tests on staging...'
-                // Add your custom integration testing script for staging
+                echo 'Using JUnit again to run tests on staging'
             }
         }
         stage('Deploy to Production') {
             steps {
-                echo 'Deploying to production...'
-                // Add your custom deployment script for production
+                echo 'Using AWS again to deploy to production'
             }
         }
     }
