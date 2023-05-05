@@ -5,17 +5,22 @@ pipeline {
             steps {
                 echo 'Building the code using Maven'
             }
-            post {
-                always {
-                    mail to: "sherlockjay03@gmail.com",
-                         subject: "Build status email",
-                         body: "Build log attached"
-                }
-            }
         }
         stage('Unit and Integration Tests') {
             steps {
                 echo 'Running tests with JUnit'
+            }
+            post {
+                success {
+                    mail to: "sherlockjay03@gmail.com",
+                         subject: "Build status email",
+                         body: "Successful build log attached"
+                }
+                failure {
+                    mail to: "sherlockjay03@gmail.com",
+                         subject: "Build status email",
+                         body: "Successful build log attached"
+                }
             }
         }
         stage('Code Analysis') {
