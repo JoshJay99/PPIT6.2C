@@ -6,6 +6,13 @@ pipeline {
                 echo 'Building...'
                 sh 'mvn clean install'
             }
+            post {
+                always {
+                    mail to: "sherlockjay03@gmail.com",
+                         subject: "Build status email",
+                         body: "Build log attached"
+                }
+            }
         }
         stage('Unit and Integration Tests') {
             steps {
@@ -23,18 +30,6 @@ pipeline {
             steps {
                 echo 'Scanning for vulnerabilities...'
                 sh 'dependency-check.sh --project MyProject --scan ./'
-            }
-        }
-        stage('Deploy to Production') {
-            steps {
-                // Add your custom deployment script for production
-            }
-            post {
-                always {
-                    mail to: "sherlockjay03@gmail.com",
-                         subject: "Build status email",
-                         body: "Build log attached"
-                }
             }
         }
     }
