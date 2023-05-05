@@ -25,14 +25,17 @@ pipeline {
                 sh 'dependency-check.sh --project MyProject --scan ./'
             }
         }
-        stage('Deploy to Production'){
-            steps{
-                post {
-                    always {
-                        mail to: "sherlockjay03@gmail.com",
-                             subject: "Build status email",
-                             body: "Build log attached"
+        stage('Deploy to Production') {
+            steps {
+                // Add your custom deployment script for production
+            }
+            post {
+                always {
+                    mail to: "sherlockjay03@gmail.com",
+                         subject: "Build status email",
+                         body: "Build log attached"
                 }
             }
+        }
     }
 }
